@@ -1,0 +1,48 @@
+Assumptions:
+
+	1. The orders in the input file are for the orderes received in the same day.
+	2. In case some orders cannot be delivered on a particular day, their timestamps are updated to the next day, and saved in a file.
+	3. If order locations are outside of delivery radius (more than 100 units in N, S, E, W), then they are not delivered, 
+	   and also not counted towards NPS calculation.
+=======================================================================================================================================================
+
+Project Structure:
+
+	1. Interface: 
+		TaskScheduler.java: With the assumption that Walmart will have default scheduler, every scheduler should be implmenting a certain interface.
+		Hence, the DroneScheduler will implement this interface.
+		
+	2. Classes:
+		2.1. Application.java: Main class, runs the application.
+		2.2. DroneScheduler.java: The scheduler for the Drone deliveries. It reads the orders from the input file, schedules the orders, 
+								writes the output schedule in a file, and also calculates NPS score.								
+		2.3. OrderInputFileParser: Parser helper for DroneScheduler.
+		2.4. Coordinates.java: A class for the location coordinates for a order.
+		2.5. Order.java : POJO class for Order, contains necessary fields and getter/setters for an individual order.
+		
+	3. Tests:
+		3.1. testPromoter: Checks for a sure promoter.
+		3.2. testDetractor: Checks for a sure detractor
+		3.3. testNormalOrders: All orders should be promoters. 
+		3.4. testOneNeutral: all except one are promoters, and that one is neutral.
+		3.5. testOneNotDelivered: One order should not be delivered.
+
+
+=======================================================================================================================================================
+
+Steps to build and run:
+
+	1. run Maven clean and install
+	2. Navigate to target directory
+	3. run the jar file generated with required options:  
+		 -i,--input <arg>    Input File Path
+		 -o,--output <arg>   Output File Path
+		 -t,--test <arg>     Run test cases
+	   
+	   example command: 
+	   
+		 java -jar DroneDeliverySystem-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+		 -i /DroneDeliverySystem/src/com/company/drone/inputfile_1 
+		 -o /Users/Desktop//output 
+		 -t y
+		
